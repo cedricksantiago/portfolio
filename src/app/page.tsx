@@ -103,7 +103,7 @@ export default function Home() {
           </motion.div>
         </section>
 
-        {/* Footer */}
+        {/* Footer footer*/}
         <motion.footer
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
