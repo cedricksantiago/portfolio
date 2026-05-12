@@ -2,15 +2,17 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Users, Building2, Maximize2, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Users, Building2, Maximize2, X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const projects = [
   {
     title: "SDO-HRD Portal",
     description: "Modern web application for Human Resources Development management, featuring a centralized directory and tracking tools.",
-    tags: ["React.js", "Tailwind", "Firebase", "TypeScript"],
+    tags: ["React.js", "Tailwind", "Supabase", "TypeScript"],
     icon: Building2,
+    link: "#",
     images: [
       "/sdo_hrd_portal/1.jpg",
       "/sdo_hrd_portal/2.jpg",
@@ -29,6 +31,7 @@ const projects = [
     description: "Web-Based Faculty Hiring Management System Implementing Data Analytics.",
     tags: ["Next.js", "React", "Tailwind", "PostgreSQL"],
     icon: Users,
+    link: "#",
     images: [
       "/hr_portal/2.png", // Dashboard
       "/hr_portal/1.png", // Login
@@ -71,89 +74,96 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
   return (
     <>
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="group flex flex-col lg:flex-row w-full bg-black border border-zinc-900 rounded-[2rem] overflow-hidden transition-all duration-500 hover:border-zinc-800 shadow-2xl min-h-[440px]"
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="group relative flex flex-col lg:flex-row w-full bg-zinc-900/40 backdrop-blur-md border border-zinc-800 rounded-3xl overflow-hidden transition-all duration-500 hover:border-zinc-100 hover:shadow-[inset_0_0_20px_rgba(255,255,255,0.05),0_0_30px_rgba(255,255,255,0.1)] min-h-[400px]"
       >
-        {/* Left Content (Text) */}
-        <div className="flex flex-col justify-center p-10 lg:p-16 lg:w-[45%] relative z-10">
-          <div className="mb-10">
-            <Icon className="w-12 h-12 text-white" />
+        {/* Left Content (60% width) */}
+        <div className="flex flex-col justify-center p-8 md:p-12 lg:w-[60%] relative z-10 space-y-4">
+          <div className="w-fit p-3 bg-zinc-800/50 rounded-2xl border border-zinc-700/50">
+            <Icon className="w-8 h-8 text-zinc-100" />
           </div>
 
-          <h4 className="text-4xl lg:text-5xl font-bold text-white tracking-tight mb-4">
+          <h4 className="text-3xl md:text-5xl font-bold text-white tracking-tighter">
             {project.title}
           </h4>
-          
-          <p className="text-zinc-400 text-lg leading-relaxed mb-10 max-w-sm">
+
+          <p className="text-zinc-400 text-base md:text-lg leading-relaxed max-w-lg">
             {project.description}
           </p>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 pt-2">
             {project.tags.map((tag, idx) => (
               <span
                 key={idx}
-                className="px-5 py-2 bg-zinc-900/50 border border-zinc-800 rounded-full text-xs font-medium text-white shadow-[0_4px_12px_rgba(0,0,0,0.5)] transition-all hover:bg-zinc-800"
+                className="px-3 py-1 bg-zinc-900 border border-zinc-700 rounded-full text-xs font-medium text-white shadow-[0_0_10px_rgba(255,255,255,0.05)]"
               >
                 {tag}
               </span>
             ))}
           </div>
+
+          {/* Details Button */}
+          <Link href={project.link} className="group/btn flex items-center gap-2 text-sm font-semibold text-zinc-300 hover:text-white transition-colors mt-4 w-fit">
+            More Details
+            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-[5px]" />
+          </Link>
         </div>
 
-        {/* Right Content (Stacked Windows) */}
-        <div className="relative w-full lg:w-[55%] min-h-[400px] lg:min-h-full p-12 flex items-center justify-center overflow-hidden">
-          
-          <div 
-            className="relative w-full max-w-[480px] aspect-[4/3] cursor-pointer"
-            onClick={openLightbox}
-          >
-            {/* Layer 3 (Back) */}
-            <div className="absolute top-[-30px] right-[-30px] w-full h-full bg-zinc-900/20 border border-zinc-800/30 rounded-xl"></div>
-            
-            {/* Layer 2 (Middle) */}
-            <div className="absolute top-[-15px] right-[-15px] w-full h-full bg-zinc-900/40 border border-zinc-800/50 rounded-xl"></div>
-
-            {/* Top Window Layer (Main Image) */}
+        {/* Right Content (40% width - Stacked Windows) */}
+        <div
+          className="relative w-full lg:w-[40%] min-h-[350px] p-8 md:p-12 flex items-center justify-center overflow-hidden cursor-pointer"
+          onClick={openLightbox}
+        >
+          <div className="relative w-full max-w-[400px] aspect-[4/3] perspective-[2000px] drop-shadow-2xl">
             <motion.div
-              className="absolute inset-0 bg-[#0a0a0a] border border-zinc-800 rounded-xl overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.9)] z-10"
-              whileHover={{ y: -5, x: -5 }}
-              transition={{ duration: 0.3 }}
+              className="relative w-full h-full transform-style-preserve-3d"
+              whileHover={{ y: -5, scale: 1.02 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
             >
-              {/* Browser Controls */}
-              <div className="absolute top-0 left-0 right-0 h-8 bg-zinc-900/90 border-b border-zinc-800 flex items-center px-4 gap-2 z-20">
-                <div className="w-2.5 h-2.5 rounded-full bg-zinc-800"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-zinc-800"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-zinc-800"></div>
-                
-                {/* Expand Indicator on Hover */}
-                <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2 text-zinc-500 text-[10px] font-medium uppercase tracking-wider">
-                  <span>Full Screen</span>
-                  <Maximize2 className="w-3 h-3" />
+              {/* Ghost 2 */}
+              <div className="absolute top-[20px] left-[20px] w-full h-full bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl z-5 opacity-20 backdrop-blur-sm"></div>
+
+              {/* Ghost 1 */}
+              <div className="absolute top-[10px] left-[10px] w-full h-full bg-zinc-800 border border-zinc-700 rounded-xl shadow-2xl z-10 opacity-40 backdrop-blur-md"></div>
+
+              {/* Top Window Layer (Main Image) */}
+              <div className="absolute inset-0 bg-[#121212] border border-zinc-700 rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-20">
+                {/* Browser Controls */}
+                <div className="absolute top-0 left-0 right-0 h-8 bg-zinc-900/90 border-b border-zinc-800 flex items-center px-4 gap-2 z-40 backdrop-blur-md">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-500/90"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/90"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-500/90"></div>
+
+                  {/* Expand Indicator on Hover */}
+                  <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2 text-zinc-400 text-[10px] font-bold uppercase tracking-widest">
+                    <span>Expand</span>
+                    <Maximize2 className="w-3 h-3" />
+                  </div>
                 </div>
-              </div>
-              
-              {/* Image Container */}
-              <div className="relative w-full h-full pt-8">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentImageIdx}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="absolute inset-0 pt-8"
-                  >
-                    <Image
-                      src={project.images[currentImageIdx]}
-                      alt={project.title}
-                      fill
-                      className="object-cover object-top opacity-90 group-hover:opacity-100 transition-opacity duration-300"
-                    />
-                  </motion.div>
-                </AnimatePresence>
+
+                {/* Image Container */}
+                <div className="relative w-full h-full pt-8">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentImageIdx}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="absolute inset-0 pt-8"
+                    >
+                      <Image
+                        src={project.images[currentImageIdx]}
+                        alt={project.title}
+                        fill
+                        className="object-cover object-top opacity-95 group-hover:opacity-100 transition-opacity duration-300"
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -183,7 +193,7 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
                   <h3 className="text-2xl font-bold text-white">{project.title}</h3>
                   <p className="text-zinc-400">Image {lightboxIdx + 1} of {project.images.length}</p>
                 </div>
-                <button 
+                <button
                   onClick={() => setIsLightboxOpen(false)}
                   className="p-3 bg-white/5 hover:bg-white/10 rounded-full text-white transition-all border border-white/10"
                 >
@@ -239,9 +249,13 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
 
 export default function ProjectsSection() {
   return (
-    <section id="projects" className="w-full py-24 relative bg-black">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="flex flex-col gap-12">
+    <section id="projects" className="w-full py-24 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="mb-16">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Featured Projects</h2>
+          <p className="text-zinc-400 mt-4 text-lg">A selection of my recent works and experiments.</p>
+        </div>
+        <div className="grid grid-cols-1 gap-12">
           {projects.map((project, idx) => (
             <ProjectCard key={idx} project={project} />
           ))}

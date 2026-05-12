@@ -66,7 +66,7 @@ export default function CustomCursor() {
       
       {/* Outer Glow Halo (Only visible on hover) */}
       <motion.div
-        className="fixed top-0 left-0 w-16 h-16 bg-violet-500/30 blur-[10px] rounded-full pointer-events-none z-[9998]"
+        className="fixed top-0 left-0 w-16 h-16 bg-white/10 blur-[10px] rounded-full pointer-events-none z-[9998]"
         style={{
           x: cursorX,
           y: cursorY,
