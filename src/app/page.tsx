@@ -49,8 +49,8 @@ export default function Home() {
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/[0.02] blur-[100px] pointer-events-none" />
               <div className="absolute -bottom-32 -left-32 w-64 h-64 bg-white/[0.01] blur-[80px] pointer-events-none" />
 
-              <div className="flex flex-col lg:flex-row gap-12 items-start justify-between">
-                <div className="space-y-12">
+              <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center lg:items-start justify-between">
+                <div className="space-y-12 flex-grow">
                   <div className="flex items-center gap-3">
                     <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
                     <span className="text-zinc-400 font-mono text-[9px] uppercase tracking-[0.4em]">Status // Online</span>
@@ -58,7 +58,7 @@ export default function Home() {
                     <span className="text-zinc-400 font-mono text-[9px] uppercase tracking-[0.4em]">ID: CST.0727</span>
                   </div>
 
-                  <h1 className="text-[clamp(2.5rem,8vw,5rem)] font-black tracking-tighter text-white leading-[0.9] uppercase">
+                  <h1 className="text-[clamp(2.5rem,10vw,5.5rem)] font-black tracking-tighter text-white leading-[0.85] uppercase max-w-[10ch] lg:max-w-none">
                     Cedrick<br />
                     Santiago
                   </h1>
@@ -85,12 +85,13 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="relative pt-10 lg:pt-0">
+                <div className="relative shrink-0 mt-12 lg:mt-0 group">
                   {/* Decorative Frame */}
                   <div className="absolute -top-4 -left-4 w-12 h-12 border-t border-l border-zinc-700" />
                   <div className="absolute -bottom-4 -right-4 w-12 h-12 border-b border-r border-zinc-700" />
                   
-                  <div className="relative w-48 h-64 md:w-64 md:h-80 overflow-hidden bg-zinc-900 border border-zinc-800">
+                  {/* Main Image Container */}
+                  <div className="relative w-56 h-72 md:w-64 md:h-80 overflow-hidden bg-zinc-900 border border-zinc-800 shadow-2xl">
                     <Image 
                       src={getImagePath("/main/hero.jpg")}
                       alt="Cedrick Santiago"
@@ -99,9 +100,12 @@ export default function Home() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
                   </div>
-                  
-                  <div className="absolute -right-6 top-1/2 -translate-y-1/2 rotate-90 origin-left">
-                     <span className="text-[8px] font-mono text-zinc-700 uppercase tracking-[0.5em] whitespace-nowrap">Identity_Core.v1</span>
+
+                  {/* Technical Label (Repositioned) */}
+                  <div className="absolute -right-10 top-1/2 -translate-y-1/2 rotate-90 origin-center hidden xl:block">
+                    <span className="text-[8px] font-mono text-zinc-700 uppercase tracking-[0.5em] whitespace-nowrap">
+                      Identity_Core.v727
+                    </span>
                   </div>
                 </div>
               </div>
