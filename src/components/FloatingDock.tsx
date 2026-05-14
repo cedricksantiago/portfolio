@@ -33,7 +33,7 @@ function IconContainer({ mouseX, title, icon: Icon, href }: any) {
   let ref = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
 
-  let distance = useTransform(mouseX, (val) => {
+  let distance = useTransform(mouseX, (val: number) => {
     let bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
     return val - bounds.x - bounds.width / 2;
   });
