@@ -79,7 +79,7 @@ export default function Home() {
                     <Link href="#contact" className="px-8 py-4 bg-white text-black text-[10px] font-bold uppercase tracking-[0.2em] hover:invert transition-all">
                       Get in Touch
                     </Link>
-                    <a href="/cv/cv-cedricksantiago.pdf" target="_blank" rel="noopener noreferrer" className="px-8 py-4 border border-zinc-700 text-zinc-300 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all">
+                    <a href={getImagePath("/cv/cv-cedricksantiago.pdf")} target="_blank" rel="noopener noreferrer" className="px-8 py-4 border border-zinc-700 text-zinc-300 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all">
                       View CV
                     </a>
                   </div>
