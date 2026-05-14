@@ -2,44 +2,43 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Users, Building2, Maximize2, X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { Users, Building2, Maximize2, X, ChevronLeft, ChevronRight, ExternalLink, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+const getImagePath = (path: string) => {
+  return path;
+};
+
 const projects = [
   {
-    title: "SDO-HRD Portal",
-    description: "Modern web application for Human Resources Development management, featuring a centralized directory and tracking tools.",
-    tags: ["React.js", "Tailwind", "Supabase", "TypeScript"],
+    title: "SDO-HRD PORTAL",
+    description: "A comprehensive Human Resource Development system designed for optimized personnel management and training tracking. Built with modern web standards for high performance and scalability.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL"],
     icon: Building2,
-    link: "#",
     images: [
       "/sdo_hrd_portal/1.jpg",
       "/sdo_hrd_portal/2.jpg",
       "/sdo_hrd_portal/3.jpg",
       "/sdo_hrd_portal/4.jpg",
       "/sdo_hrd_portal/5.jpg",
-      "/sdo_hrd_portal/6.jpg",
-      "/sdo_hrd_portal/7.jpg",
-      "/sdo_hrd_portal/8.jpg",
-      "/sdo_hrd_portal/9.jpg",
-      "/sdo_hrd_portal/10.jpg",
     ],
+    link: "https://hrd-project-blond.vercel.app"
   },
   {
-    title: "HR Portal",
-    description: "Web-Based Faculty Hiring Management System Implementing Data Analytics.",
-    tags: ["Next.js", "React", "Tailwind", "PostgreSQL"],
+    title: "HR PORTAL",
+    description: "A sophisticated management dashboard for streamlining HR operations, from recruitment to performance monitoring. Features a technical, minimalist interface optimized for data clarity.",
+    tags: ["React", "Node.js", "PostgreSQL", "Supabase", "Framer Motion"],
     icon: Users,
-    link: "#",
     images: [
-      "/hr_portal/2.png", // Dashboard
-      "/hr_portal/1.png", // Login
-      "/hr_portal/3.png", // Analytics
-      "/hr_portal/4.png", // Dean Portal
-      "/hr_portal/5.png", // Faculty Renewals
+      "/hr_portal/1.png",
+      "/hr_portal/2.png",
+      "/hr_portal/3.png",
+      "/hr_portal/4.png",
+      "/hr_portal/5.png",
     ],
-  },
+    link: "https://udm-talenthub-next-eight.vercel.app/login"
+  }
 ];
 
 const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
@@ -105,9 +104,14 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
             ))}
           </div>
 
-          {/* Details Button */}
-          <Link href={project.link} className="group/btn flex items-center gap-2 text-sm font-semibold text-zinc-300 hover:text-white transition-colors mt-4 w-fit">
-            More Details
+          {/* View Site Button */}
+          <Link 
+            href={project.link} 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group/btn flex items-center gap-2 text-sm font-semibold text-zinc-300 hover:text-white transition-colors mt-8 w-fit"
+          >
+            VIEW SITE
             <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-[5px]" />
           </Link>
         </div>
@@ -156,7 +160,7 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
                       className="absolute inset-0 pt-8"
                     >
                       <Image
-                        src={project.images[currentImageIdx]}
+                        src={getImagePath(project.images[currentImageIdx])}
                         alt={project.title}
                         fill
                         className="object-cover object-top opacity-95 group-hover:opacity-100 transition-opacity duration-300"
@@ -213,7 +217,7 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
                     className="absolute inset-0"
                   >
                     <Image
-                      src={project.images[lightboxIdx]}
+                      src={getImagePath(project.images[lightboxIdx])}
                       alt={project.title}
                       fill
                       className="object-contain"
@@ -249,13 +253,18 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
 
 export default function ProjectsSection() {
   return (
-    <section id="projects" className="w-full py-24 relative overflow-hidden">
+    <section id="projects" className="w-full py-40 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="mb-16">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Featured Projects</h2>
-          <p className="text-zinc-400 mt-4 text-lg">A selection of my recent works and experiments.</p>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 border-b border-zinc-900 pb-16 mb-24">
+          <div>
+            <div className="text-zinc-400 font-mono text-[10px] uppercase tracking-[0.4em] mb-4">Module.03 // Featured_Projects</div>
+            <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase">Featured Projects</h2>
+          </div>
+          <p className="text-zinc-300 text-xl max-w-sm leading-snug font-light">
+            A selection of my recent works and technical experiments.
+          </p>
         </div>
-        <div className="grid grid-cols-1 gap-12">
+        <div className="grid grid-cols-1 gap-32">
           {projects.map((project, idx) => (
             <ProjectCard key={idx} project={project} />
           ))}

@@ -17,7 +17,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), sans-serif;
   overflow-x: hidden;
-  cursor: none; /* Hide default cursor globally */
+  cursor: auto !important;
 }
 
 /* Cinematic Noise Texture */

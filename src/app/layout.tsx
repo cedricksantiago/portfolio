@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import CosmicBackground from "@/components/CosmicBackground";
+import IndustrialBackground from "@/components/IndustrialBackground";
+import FloatingDock from "@/components/FloatingDock";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -24,8 +25,9 @@ export default function RootLayout({
       className={`${inter.variable} h-full antialiased dark`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground relative selection:bg-white/10 selection:text-white">
-        <CosmicBackground />
+        <IndustrialBackground />
         {children}
+        <FloatingDock />
       </body>
     </html>
   );
