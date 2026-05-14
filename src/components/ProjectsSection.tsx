@@ -7,7 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 const getImagePath = (path: string) => {
-  return path;
+  const isProd = process.env.NODE_ENV === 'production';
+  return isProd ? `/portfolio${path}` : path;
 };
 
 const projects = [

@@ -10,25 +10,19 @@ export default function ContactForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get("email") as string;
-    const today = new Date().toDateString();
+    const now = Date.now();
+    const COOLDOWN_MS = 30 * 60 * 1000; // 30 minutes
+    const lastTransmission = Number(localStorage.getItem("last_transmission") || 0);
 
-    const localData = JSON.parse(localStorage.getItem("transmission_quota") || "{}");
-    const userQuota = localData[email] || { count: 0, date: today };
-
-    if (userQuota.date !== today) {
-      userQuota.count = 0;
-      userQuota.date = today;
-    }
-
-    if (userQuota.count >= 3) {
-      alert("[QUOTA_EXCEEDED]: Daily transmission limit reached for this address.");
+    if (now - lastTransmission < COOLDOWN_MS) {
+      const remainingMin = Math.ceil((COOLDOWN_MS - (now - lastTransmission)) / 60000);
+      alert(`[COOLDOWN_ACTIVE]: System is recharging. Next transmission window available in ${remainingMin} minutes.`);
       return;
     }
 
     setStatus("sending");
     
+    const formData = new FormData(e.currentTarget);
     const serviceId = "service_puvgmyb";
     const templateId = "template_1pp6khl";
     const publicKey = "iW2v8Md-bZ321vmL_";
@@ -39,7 +33,7 @@ export default function ContactForm() {
       user_id: publicKey,
       template_params: {
         from_name: `${formData.get("first_name")} ${formData.get("last_name")}`,
-        from_email: email,
+        from_email: formData.get("email"),
         message: formData.get("message"),
       }
     };
@@ -54,9 +48,8 @@ export default function ContactForm() {
       });
 
       if (response.ok) {
-        userQuota.count += 1;
-        localData[email] = userQuota;
-        localStorage.setItem("transmission_quota", JSON.stringify(localData));
+        // Record timestamp on success
+        localStorage.setItem("last_transmission", Date.now().toString());
 
         setStatus("success");
         (e.target as HTMLFormElement).reset();

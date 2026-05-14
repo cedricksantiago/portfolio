@@ -9,6 +9,11 @@ import ContactForm from "@/components/ContactForm";
 import { TypeAnimation } from "react-type-animation";
 import Image from "next/image";
 
+const getImagePath = (path: string) => {
+  const isProd = process.env.NODE_ENV === 'production';
+  return isProd ? `/portfolio${path}` : path;
+};
+
 export default function Home() {
   useEffect(() => {
     // Force default cursor
@@ -87,7 +92,7 @@ export default function Home() {
                   
                   <div className="relative w-48 h-64 md:w-64 md:h-80 overflow-hidden bg-zinc-900 border border-zinc-800">
                     <Image 
-                      src="/main/hero.jpg"
+                      src={getImagePath("/main/hero.jpg")}
                       alt="Cedrick Santiago"
                       fill
                       className="object-cover scale-105 group-hover:scale-100 transition-transform duration-1000"
